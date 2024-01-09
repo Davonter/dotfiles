@@ -56,6 +56,7 @@ vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 vim.g.Comment_nesting = true
 vim.g.Comment_padding = ' * '
 vim.g.Comment_leader = ' '
+vim.lsp.set_log_level("off")
 
 -- WSL yank support
 vim.cmd [[
