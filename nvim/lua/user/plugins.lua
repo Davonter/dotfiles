@@ -102,7 +102,7 @@ return packer.startup(function(use)
     use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
     -- Git
-    use { "lewis6991/gitsigns.nvim"}
+    use { "lewis6991/gitsigns.nvim", tag = "v0.7"}
     use 'sindrets/diffview.nvim'
 
     -- UI

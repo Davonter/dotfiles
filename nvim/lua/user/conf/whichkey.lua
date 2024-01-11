@@ -98,12 +98,11 @@ local mappings = {
   -- ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
   ["F"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args(require('telescope.themes').get_ivy())<cr>", "Find Text" },
   ["s"] = {
-    "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>",
+    "<cmd>lua require('telescope.builtin').lsp_document_symbols({symbol_width=50})<cr>",
     "Find Document Symbols",
   },
   ["S"] = {
-    "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
-    -- "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",
+    "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols({symbol_width=40})<cr>",
     "Find Symobls",
   },
 
