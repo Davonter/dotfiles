@@ -93,8 +93,6 @@ keymap("v", "p", '"_dP', opts)
 -- keymap("n", "ma", "<cmd>Telescope vim_bookmarks current_file<cr>", opts)
 keymap("n", "ma", "<cmd>Telescope vim_bookmarks all<cr>", opts)
 
-keymap("n", "<A-o>", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
-
 keymap("n", "<leader>u", "<cmd>Trouble lsp_references<cr>", opts)
 -- calltree
 keymap("n", "<leader>in", "<cmd>lua vim.lsp.buf.incoming_calls()<cr>", opts)
