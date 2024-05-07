@@ -117,6 +117,7 @@ return packer.startup(function(use)
     -- litee family
     use "ldelossa/litee.nvim"
     use "ldelossa/litee-calltree.nvim"
+    use "levouh/tint.nvim"
 
     use {"cpea2506/one_monokai.nvim"}
 
