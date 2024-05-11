@@ -113,7 +113,7 @@ return packer.startup(function(use)
     use {"j-hui/fidget.nvim", tag = "legacy"} -- show lsp progress
     use "sindrets/winshift.nvim" -- rerange window layout
     use 'EdenEast/nightfox.nvim'
-    -- use { "lukas-reineke/indent-blankline.nvim", tag = "v3.3.7" }
+    use { "lukas-reineke/indent-blankline.nvim" }
     -- litee family
     use "ldelossa/litee.nvim"
     use "ldelossa/litee-calltree.nvim"
