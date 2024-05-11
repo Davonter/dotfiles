@@ -24,7 +24,6 @@ M.setup = function()
     "tabout",
     "hlargs",
     "spellsitter",
-    "tabnine",
     "startup",
     "nvim-neoclip",
     "nvim-biscuits",

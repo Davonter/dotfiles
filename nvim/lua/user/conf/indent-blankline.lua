@@ -5,5 +5,5 @@ if not status_ok then
 end
 
 ibl.setup({
-   whitespace = { highlight = { "Whitespace", "NonText" }} 
+   whitespace = { highlight = { "Whitespace", "NonText" }}
 })

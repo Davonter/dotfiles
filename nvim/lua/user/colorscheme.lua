@@ -1,5 +1,5 @@
 -- cursor color: #61AFEF
-local colorscheme = "one_monokai"
+local colorscheme = "dracula-soft"
 
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then

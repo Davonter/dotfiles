@@ -109,6 +109,7 @@ return packer.startup(function(use)
     -- Colorschemes
     use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
     use "norcalli/nvim-colorizer.lua" -- show color
+    use 'Mofiqul/dracula.nvim'
     use "folke/trouble.nvim"
     use {"j-hui/fidget.nvim", tag = "legacy"} -- show lsp progress
     use "sindrets/winshift.nvim" -- rerange window layout
