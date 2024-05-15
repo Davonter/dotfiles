@@ -79,7 +79,7 @@ return packer.startup(function(use)
     use "terrortylor/nvim-comment"  -- for comment
     use "preservim/nerdcommenter"
     use "Shatur/neovim-session-manager"
-    use { "enddeadroyal/symbols-outline.nvim", branch = "bugfix/symbol-hover-misplacement" }
+    use "hedyhli/outline.nvim"
 
     -- cmp plugins
     use { "hrsh7th/nvim-cmp"} -- The completion plugin
@@ -111,7 +111,7 @@ return packer.startup(function(use)
     use "norcalli/nvim-colorizer.lua" -- show color
     use 'Mofiqul/dracula.nvim'
     use "folke/trouble.nvim"
-    use {"j-hui/fidget.nvim", tag = "legacy"} -- show lsp progress
+    use {"j-hui/fidget.nvim", tag = "v1.4.1"} -- show lsp progress
     use "sindrets/winshift.nvim" -- rerange window layout
     use 'EdenEast/nightfox.nvim'
     use { "lukas-reineke/indent-blankline.nvim" }

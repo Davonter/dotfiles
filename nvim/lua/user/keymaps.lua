@@ -115,7 +115,7 @@ keymap("v", "<leader>rs", ":%SnipRun<cr>", opts)
 
 -- lsp
 keymap("", "<A-o>", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
-keymap("", "<A-2>", "<cmd>SymbolsOutline<cr>", opts)
+keymap("", "<A-2>", "<cmd>Outline<cr>", opts)
 
 keymap("n", ":", "<cmd>FineCmdline<cr>", opts)
 
