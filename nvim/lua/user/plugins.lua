@@ -78,7 +78,7 @@ return packer.startup(function(use)
     -- Editor enhance
     use "terrortylor/nvim-comment"  -- for comment
     use "preservim/nerdcommenter"
-    use "Shatur/neovim-session-manager"
+    use {"Shatur/neovim-session-manager", commit = "a0b9d25154be573bc0f99877afb3f57cf881cce7"}
     use "hedyhli/outline.nvim"
 
     -- cmp plugins
