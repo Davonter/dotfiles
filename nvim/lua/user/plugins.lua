@@ -51,7 +51,7 @@ return packer.startup(function(use)
     use { "ahmedkhalf/project.nvim"}
     use { "lewis6991/impatient.nvim"}
     use { "goolord/alpha-nvim"}
-    use { "folke/which-key.nvim"}
+    use { "folke/which-key.nvim", tag = "v2.1.0"}
 
     -- Telescope
     use { "nvim-telescope/telescope.nvim"}
@@ -76,10 +76,10 @@ return packer.startup(function(use)
 
     use "ray-x/lsp_signature.nvim" -- show function signature when typing
     -- Editor enhance
-    use "terrortylor/nvim-comment"  -- for comment
+    -- use "terrortylor/nvim-comment"  -- for comment
     use "preservim/nerdcommenter"
     use {"Shatur/neovim-session-manager", commit = "a0b9d25154be573bc0f99877afb3f57cf881cce7"}
-    use "hedyhli/outline.nvim"
+    use {"hedyhli/outline.nvim"}
 
     -- cmp plugins
     use { "hrsh7th/nvim-cmp"} -- The completion plugin
