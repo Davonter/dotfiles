@@ -3,8 +3,8 @@ local fn = vim.fn
 -- Automatically install packer
 local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
-    PACKER_BOOTSTRAP = fn.system {"git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim",
-                                  install_path}
+    PACKER_BOOTSTRAP = fn.system { "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim",
+        install_path }
     print "Installing packer close and reopen Neovim..."
     vim.cmd [[packadd packer.nvim]]
 end
@@ -36,25 +36,25 @@ packer.init {
 return packer.startup(function(use)
     -- My plugins here
 
-    use { "wbthomason/packer.nvim"} -- Have packer manage itself
-    use { "nvim-lua/plenary.nvim"} -- Useful lua functions used by lots of plugins
-    use {"nvim-lua/popup.nvim"}
-    use { "windwp/nvim-autopairs"} -- Autopairs, integrates with both cmp and treesitter
-    use { "numToStr/Comment.nvim"}
-    use { "JoosepAlviste/nvim-ts-context-commentstring"}
-    use { "kyazdani42/nvim-web-devicons"}
-    use { "nvim-tree/nvim-tree.lua", tag = "compat-nvim-0.7"}
-    use { "akinsho/bufferline.nvim"}
-    use { "moll/vim-bbye"}
-    use { "nvim-lualine/lualine.nvim"}
-    use { "akinsho/toggleterm.nvim"}
-    use { "ahmedkhalf/project.nvim"}
-    use { "lewis6991/impatient.nvim"}
-    use { "goolord/alpha-nvim"}
-    use { "folke/which-key.nvim", tag = "v2.1.0"}
+    use { "wbthomason/packer.nvim" } -- Have packer manage itself
+    use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
+    use { "nvim-lua/popup.nvim" }
+    use { "windwp/nvim-autopairs" } -- Autopairs, integrates with both cmp and treesitter
+    use { "numToStr/Comment.nvim" }
+    use { "JoosepAlviste/nvim-ts-context-commentstring" }
+    use { "kyazdani42/nvim-web-devicons" }
+    use { "nvim-tree/nvim-tree.lua", tag = "compat-nvim-0.7" }
+    use { "akinsho/bufferline.nvim" }
+    use { "moll/vim-bbye" }
+    use { "nvim-lualine/lualine.nvim" }
+    use { "akinsho/toggleterm.nvim" }
+    use { "ahmedkhalf/project.nvim" }
+    use { "lewis6991/impatient.nvim" }
+    use { "goolord/alpha-nvim" }
+    use { "folke/which-key.nvim", tag = "v2.1.0" }
 
     -- Telescope
-    use { "nvim-telescope/telescope.nvim"}
+    use { "nvim-telescope/telescope.nvim" }
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
     use "nvim-telescope/telescope-ui-select.nvim"
     use "nvim-telescope/telescope-live-grep-args.nvim"
@@ -62,57 +62,57 @@ return packer.startup(function(use)
     use "tom-anders/telescope-vim-bookmarks.nvim"
 
     -- Treesittetr
-    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", tag = "v0.9.1"}
-    use { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter", requires = "nvim-treesitter/nvim-treesitter"} -- enhance texetobject selection
-    use { "romgrk/nvim-treesitter-context" } -- show class/function at the top
-    use {"andymass/vim-matchup"}
+    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", tag = "v0.9.1" }
+    use { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter", requires = "nvim-treesitter/nvim-treesitter" } -- enhance texetobject selection
+    use { "romgrk/nvim-treesitter-context" }                                                                                      -- show class/function at the top
+    use { "andymass/vim-matchup" }
     use { "bfrg/vim-cpp-modern" }
 
-    use { "neovim/nvim-lspconfig"} -- enable LSP
-    use { "williamboman/mason.nvim"} -- simple to use language server installer
-    use { "williamboman/mason-lspconfig.nvim"}
-	use { "jose-elias-alvarez/null-ls.nvim"} -- for formatters and linters
-    use { "RRethy/vim-illuminate"}
+    use { "neovim/nvim-lspconfig" }       -- enable LSP
+    use { "williamboman/mason.nvim" }     -- simple to use language server installer
+    use { "williamboman/mason-lspconfig.nvim" }
+    use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
+    use { "RRethy/vim-illuminate" }
 
     use "ray-x/lsp_signature.nvim" -- show function signature when typing
     -- Editor enhance
     -- use "terrortylor/nvim-comment"  -- for comment
     use "preservim/nerdcommenter"
-    use {"Shatur/neovim-session-manager", commit = "a0b9d25154be573bc0f99877afb3f57cf881cce7"}
-    use {"hedyhli/outline.nvim"}
+    use { "Shatur/neovim-session-manager", commit = "a0b9d25154be573bc0f99877afb3f57cf881cce7" }
+    use { "hedyhli/outline.nvim" }
 
     -- cmp plugins
-    use { "hrsh7th/nvim-cmp"} -- The completion plugin
-    use { "hrsh7th/cmp-buffer"} -- buffer completions
-    use { "hrsh7th/cmp-path"} -- path completions
-    use { "hrsh7th/cmp-nvim-lsp"}
-    use { "hrsh7th/cmp-nvim-lua"}
-    use { "saadparwaiz1/cmp_luasnip"}
+    use { "hrsh7th/nvim-cmp" }  -- The completion plugin
+    use { "hrsh7th/cmp-buffer" } -- buffer completions
+    use { "hrsh7th/cmp-path" }  -- path completions
+    use { "hrsh7th/cmp-nvim-lsp" }
+    use { "hrsh7th/cmp-nvim-lua" }
+    use { "saadparwaiz1/cmp_luasnip" }
 
     use "ethanholz/nvim-lastplace" -- auto return back to the last modified positon when open a file
     -- use "BurntSushi/ripgrep" -- ripgrep
-    use "nvim-pack/nvim-spectre" -- search and replace pane
-    use "tpope/vim-repeat" --  . command enhance
-    use "tpope/vim-surround" -- vim surround
+    use "nvim-pack/nvim-spectre"   -- search and replace pane
+    use "tpope/vim-repeat"         --  . command enhance
+    use "tpope/vim-surround"       -- vim surround
 
-    use { "phaazon/hop.nvim"}
+    use { "phaazon/hop.nvim" }
 
     -- snippets
-    use "L3MON4D3/LuaSnip" -- snippet engine
+    use "L3MON4D3/LuaSnip"             -- snippet engine
     use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
     -- Git
-    use { "lewis6991/gitsigns.nvim", tag = "v0.7"}
+    use { "lewis6991/gitsigns.nvim", tag = "v0.7" }
     use 'sindrets/diffview.nvim'
 
     -- UI
     -- Colorschemes
-    use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
+    use "lunarvim/colorschemes"       -- A bunch of colorschemes you can try out
     use "norcalli/nvim-colorizer.lua" -- show color
     use 'Mofiqul/dracula.nvim'
     use "folke/trouble.nvim"
-    use {"j-hui/fidget.nvim", tag = "v1.4.1"} -- show lsp progress
-    use "sindrets/winshift.nvim" -- rerange window layout
+    use { "j-hui/fidget.nvim", tag = "v1.4.1" } -- show lsp progress
+    use "sindrets/winshift.nvim"              -- rerange window layout
     use 'EdenEast/nightfox.nvim'
     use { "lukas-reineke/indent-blankline.nvim" }
     -- litee family
@@ -120,7 +120,7 @@ return packer.startup(function(use)
     use "ldelossa/litee-calltree.nvim"
     use "levouh/tint.nvim"
 
-    use {"cpea2506/one_monokai.nvim"}
+    use { "cpea2506/one_monokai.nvim" }
 
     -- tools
     use "voldikss/vim-translator"
@@ -130,7 +130,7 @@ return packer.startup(function(use)
     -- use "ravenxrz/DoxygenToolkit.vim"
     use "Pocco81/auto-save.nvim"
     use "djoshea/vim-autoread"
-    use { "VonHeikemen/fine-cmdline.nvim", requires = {{"MunifTanjim/nui.nvim"}} }
+    use { "VonHeikemen/fine-cmdline.nvim", requires = { { "MunifTanjim/nui.nvim" } } }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

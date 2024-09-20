@@ -26,9 +26,6 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<C-W>m", ":WinShift<cr>", opts)
 
 keymap("n", "<S-Tab>", "<C-6>", opts)
--- FileExpoler
-keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
-keymap("n", "<leader>f", ":NvimTreeFindFile<cr>", opts)
 -- no highlight
 keymap("n", "<leader>l", ":nohl<cr>", opts)
 -- save buffer
@@ -59,9 +56,6 @@ keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Navigate buffers
--- keymap("n", "R", ":bnext<CR>", opts)
--- keymap("n", "E", ":bprevious<CR>", opts)
--- NOTE: E/R navigation needs  'bufferline' plugin
 keymap("n", "R", ":BufferLineCycleNext<CR>", opts)
 keymap("n", "E", ":BufferLineCyclePrev<CR>", opts)
 
@@ -70,10 +64,6 @@ keymap("n", "H", "^", opts)
 keymap("n", "L", "$", opts)
 keymap("v", "H", "^", opts)
 keymap("v", "L", "$", opts)
-
--- Move text up and down
-keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
-keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
 
 -- Insert --
 -- Press jl fast to enter
@@ -93,35 +83,15 @@ keymap("v", "p", '"_dP', opts)
 -- keymap("n", "ma", "<cmd>Telescope vim_bookmarks current_file<cr>", opts)
 keymap("n", "ma", "<cmd>Telescope vim_bookmarks all<cr>", opts)
 
-keymap("n", "<leader>u", "<cmd>Trouble lsp_references<cr>", opts)
--- calltree
-keymap("n", "<leader>in", "<cmd>lua vim.lsp.buf.incoming_calls()<cr>", opts)
-
--- git diff view
-keymap('n', '<leader>j', ']c', opts)
-keymap('n', '<leader>k','[c', opts)
-
-
--- unit test
-keymap("n", "<leader>rr", "<cmd>UltestNearest<cr>", opts)
-keymap("n", "<leader>rd", "<cmd>UltestDebugNearest<cr>", opts)
-
--- comment
-keymap("n", "gcf", "<cmd>Dox<cr>", opts)
-
--- sniprun
-keymap("n", "<leader>rf", ":%SnipRun<cr>", opts)
-keymap("v", "<leader>rs", ":%SnipRun<cr>", opts)
-
 -- lsp
 keymap("", "<A-o>", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
 keymap("", "<A-2>", "<cmd>Outline<cr>", opts)
+keymap("", "<leader>f", "<cmd>lua vim.lsp.buf.format()<cr>", opts)
 
 keymap("n", ":", "<cmd>FineCmdline<cr>", opts)
 
 -- for spell check
 vim.cmd(
-[[
+    [[
   nnoremap <leader>s :call search('\w\>', 'c')<CR>a<C-X><C-S>
 ]])
-
