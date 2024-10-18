@@ -37,9 +37,9 @@ return packer.startup(function(use)
     -- My plugins here
 
     use { "wbthomason/packer.nvim" } -- Have packer manage itself
-    use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
+    use { "nvim-lua/plenary.nvim" }  -- Useful lua functions used by lots of plugins
     use { "nvim-lua/popup.nvim" }
-    use { "windwp/nvim-autopairs" } -- Autopairs, integrates with both cmp and treesitter
+    use { "windwp/nvim-autopairs" }  -- Autopairs, integrates with both cmp and treesitter
     use { "numToStr/Comment.nvim" }
     use { "JoosepAlviste/nvim-ts-context-commentstring" }
     use { "kyazdani42/nvim-web-devicons" }
@@ -56,20 +56,20 @@ return packer.startup(function(use)
     -- Telescope
     use { "nvim-telescope/telescope.nvim" }
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
-    use "nvim-telescope/telescope-ui-select.nvim"
-    use "nvim-telescope/telescope-live-grep-args.nvim"
-    use "MattesGroeger/vim-bookmarks"
-    use "tom-anders/telescope-vim-bookmarks.nvim"
+    use { "nvim-telescope/telescope-ui-select.nvim" }
+    use { "nvim-telescope/telescope-live-grep-args.nvim" }
+    use { "MattesGroeger/vim-bookmarks" }
+    use { "tom-anders/telescope-vim-bookmarks.nvim" }
 
     -- Treesittetr
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", tag = "v0.9.1" }
     use { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter", requires = "nvim-treesitter/nvim-treesitter" } -- enhance texetobject selection
-    use { "romgrk/nvim-treesitter-context" }                                                                                      -- show class/function at the top
+    use { "romgrk/nvim-treesitter-context" }                                                                                       -- show class/function at the top
     use { "andymass/vim-matchup" }
     use { "bfrg/vim-cpp-modern" }
 
-    use { "neovim/nvim-lspconfig" }       -- enable LSP
-    use { "williamboman/mason.nvim" }     -- simple to use language server installer
+    use { "neovim/nvim-lspconfig" }           -- enable LSP
+    use { "williamboman/mason.nvim" }         -- simple to use language server installer
     use { "williamboman/mason-lspconfig.nvim" }
     use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
     use { "RRethy/vim-illuminate" }
@@ -77,14 +77,14 @@ return packer.startup(function(use)
     use "ray-x/lsp_signature.nvim" -- show function signature when typing
     -- Editor enhance
     -- use "terrortylor/nvim-comment"  -- for comment
-    use "preservim/nerdcommenter"
+    use { "preservim/nerdcommenter" }
     use { "Shatur/neovim-session-manager", commit = "a0b9d25154be573bc0f99877afb3f57cf881cce7" }
     use { "hedyhli/outline.nvim" }
 
     -- cmp plugins
-    use { "hrsh7th/nvim-cmp" }  -- The completion plugin
+    use { "hrsh7th/nvim-cmp" }   -- The completion plugin
     use { "hrsh7th/cmp-buffer" } -- buffer completions
-    use { "hrsh7th/cmp-path" }  -- path completions
+    use { "hrsh7th/cmp-path" }   -- path completions
     use { "hrsh7th/cmp-nvim-lsp" }
     use { "hrsh7th/cmp-nvim-lua" }
     use { "saadparwaiz1/cmp_luasnip" }
@@ -110,10 +110,10 @@ return packer.startup(function(use)
     use "lunarvim/colorschemes"       -- A bunch of colorschemes you can try out
     use "norcalli/nvim-colorizer.lua" -- show color
     use 'Mofiqul/dracula.nvim'
-    use "folke/trouble.nvim"
+    use { "folke/trouble.nvim", tag="v2.10.0"}
     use { "j-hui/fidget.nvim", tag = "v1.4.1" } -- show lsp progress
-    use "sindrets/winshift.nvim"              -- rerange window layout
-    use 'EdenEast/nightfox.nvim'
+    use {"sindrets/winshift.nvim"}                -- rerange window layout
+    use { 'EdenEast/nightfox.nvim' }
     use { "lukas-reineke/indent-blankline.nvim" }
     -- litee family
     use "ldelossa/litee.nvim"
