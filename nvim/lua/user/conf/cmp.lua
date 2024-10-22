@@ -9,7 +9,7 @@ end
 local function jumpable(dir)
   local luasnip_ok, luasnip = pcall(require, "luasnip")
   if not luasnip_ok then
-    return
+    return false
   end
 
   local win_get_cursor = vim.api.nvim_win_get_cursor
