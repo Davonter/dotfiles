@@ -73,6 +73,7 @@ return packer.startup(function(use)
     use { "williamboman/mason-lspconfig.nvim" }
     use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
     use { "RRethy/vim-illuminate" }
+    use { "p00f/clangd_extensions.nvim" }
 
     use "ray-x/lsp_signature.nvim" -- show function signature when typing
     -- Editor enhance

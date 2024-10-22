@@ -85,7 +85,7 @@ local mappings = {
   ["C"] = { "<cmd>%bd|e#<CR>", "Close Other Buffers" },
   -- ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
   ["f"] = {
-    "<cmd>Telescope fd<cr>",
+    "<cmd>lua require('telescope.builtin').find_files()<cr>",
     "Find files",
   },
   -- ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },

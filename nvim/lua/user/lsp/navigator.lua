@@ -42,7 +42,7 @@ require 'navigator'.setup({
     -- Default {}
     diagnostic = {
       underline = true,
-      virtual_text = false, -- show virtual for diagnostic message
+      virtual_text = true, -- show virtual for diagnostic message
       update_in_insert = false, -- update diagnostic message in insert mode
     },
     diagnostic_scrollbar_sign = false, -- experimental:  diagnostic status in scroll bar area; set to false to disable the diagnostic sign,
