@@ -28,8 +28,6 @@ keymap("n", "<C-W>m", ":WinShift<cr>", opts)
 keymap("n", "<S-Tab>", "<C-6>", opts)
 -- no highlight
 keymap("n", "<leader>l", ":nohl<cr>", opts)
--- save buffer
-keymap("n", "<leader>w", ":w<cr>", opts)
 -- exit cur window
 keymap("n", "<leader>q", ":q<cr>", opts)
 -- delete cur buffer
