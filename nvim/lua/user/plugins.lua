@@ -1,141 +1,265 @@
-local fn = vim.fn
-
--- Automatically install packer
-local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-    PACKER_BOOTSTRAP = fn.system { "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim",
-        install_path }
-    print "Installing packer close and reopen Neovim..."
-    vim.cmd [[packadd packer.nvim]]
+-- Lazy.nvim 引导安装
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
--- vim.cmd [[
---   augroup packer_user_config
---     autocmd!
---     autocmd BufWritePost plugins.lua source <afile> | PackerSync
---   augroup end
--- ]]
+-- 插件配置
+return require("lazy").setup({
+  -- 核心插件（这些插件通常需要立即加载）
+  { "nvim-lua/plenary.nvim" },
+  { "nvim-lua/popup.nvim" },
+  { "nvim-tree/nvim-web-devicons" },
+  { "lewis6991/impatient.nvim" },
 
--- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-    return
-end
+  -- 编辑器增强
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true,
+  },
+  {
+    "numToStr/Comment.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    config = true,
+  },
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    tag = "compat-nvim-0.7",
+  },
+  {
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  { "moll/vim-bbye", event = "VeryLazy" },
+  {
+    "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  {
+    "akinsho/toggleterm.nvim",
+    cmd = { "ToggleTerm", "TermExec" },
+  },
+  {
+    "ahmedkhalf/project.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("project_nvim").setup({
+        -- 在这些目录中显示项目标记
+        patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", ".projectroot" },
+        -- 显示最近的项目
+        show_hidden = false,
+        -- 当切换项目时自动切换到项目目录
+        silent_chdir = true,
+        -- 当发现项目时自动更新cwd
+        update_cwd = true,
+        -- 当发现项目时自动更新工作区
+        update_focused_file = {
+          enable = true,
+          update_cwd = true
+        },
+      })
+    end,
+  },
+  {
+    "goolord/alpha-nvim",
+    event = "VimEnter",
+  },
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    tag = "v2.1.0",
+  },
 
--- Have packer use a popup window
-packer.init {
-    display = {
-        -- open_fn = function()
-        --   return require("packer.util").float { border = "rounded" }
-        -- end,
-    }
-}
+  -- Telescope 相关
+  {
+    "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "nvim-telescope/telescope-ui-select.nvim" },
+      { "nvim-telescope/telescope-live-grep-args.nvim" },
+      { "MattesGroeger/vim-bookmarks" },
+      { "tom-anders/telescope-vim-bookmarks.nvim" },
+    },
+  },
 
--- Install your plugins here
-return packer.startup(function(use)
-    -- My plugins here
+  -- Treesitter 相关
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
+    build = ":TSUpdate",
+    tag = "v0.9.1",
+    dependencies = {
+      {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        event = "VeryLazy",
+      },
+      {
+        "romgrk/nvim-treesitter-context",
+        event = "VeryLazy",
+      },
+      { "andymass/vim-matchup", event = "VeryLazy" },
+      { "bfrg/vim-cpp-modern", event = "VeryLazy" },
+    },
+  },
 
-    use { "wbthomason/packer.nvim" } -- Have packer manage itself
-    use { "nvim-lua/plenary.nvim" }  -- Useful lua functions used by lots of plugins
-    use { "nvim-lua/popup.nvim" }
-    use { "windwp/nvim-autopairs" }  -- Autopairs, integrates with both cmp and treesitter
-    use { "numToStr/Comment.nvim" }
-    use { "JoosepAlviste/nvim-ts-context-commentstring" }
-    use { "kyazdani42/nvim-web-devicons" }
-    use { "nvim-tree/nvim-tree.lua", tag = "compat-nvim-0.7" }
-    use { "akinsho/bufferline.nvim" }
-    use { "moll/vim-bbye" }
-    use { "nvim-lualine/lualine.nvim" }
-    use { "akinsho/toggleterm.nvim" }
-    use { "ahmedkhalf/project.nvim" }
-    use { "lewis6991/impatient.nvim" }
-    use { "goolord/alpha-nvim" }
-    use { "folke/which-key.nvim", tag = "v2.1.0" }
+  -- LSP 相关
+  {
+    "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      { "williamboman/mason.nvim" },
+      { "williamboman/mason-lspconfig.nvim" },
+      { "jose-elias-alvarez/null-ls.nvim" },
+      { "RRethy/vim-illuminate", event = "VeryLazy" },
+      { "p00f/clangd_extensions.nvim", event = "VeryLazy" },
+      {
+        "ray-x/lsp_signature.nvim",
+        event = "InsertEnter",
+      },
+    },
+  },
 
-    -- Telescope
-    use { "nvim-telescope/telescope.nvim" }
-    use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
-    use { "nvim-telescope/telescope-ui-select.nvim" }
-    use { "nvim-telescope/telescope-live-grep-args.nvim" }
-    use { "MattesGroeger/vim-bookmarks" }
-    use { "tom-anders/telescope-vim-bookmarks.nvim" }
+  -- 编辑器功能增强
+  { "preservim/nerdcommenter", event = "VeryLazy" },
+  {
+    "Shatur/neovim-session-manager",
+    event = "VeryLazy",
+    commit = "a0b9d25154be573bc0f99877afb3f57cf881cce7",
+  },
+  { "hedyhli/outline.nvim", event = "VeryLazy" },
 
-    -- Treesittetr
-    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", tag = "v0.9.1" }
-    use { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter", requires = "nvim-treesitter/nvim-treesitter" } -- enhance texetobject selection
-    use { "romgrk/nvim-treesitter-context" }                                                                                       -- show class/function at the top
-    use { "andymass/vim-matchup" }
-    use { "bfrg/vim-cpp-modern" }
+  -- 补全相关
+  {
+    "hrsh7th/nvim-cmp",
+    event = { "InsertEnter", "CmdlineEnter" },
+    dependencies = {
+      { "hrsh7th/cmp-buffer" },
+      { "hrsh7th/cmp-path" },
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-nvim-lua" },
+      { "saadparwaiz1/cmp_luasnip" },
+      { "L3MON4D3/LuaSnip" },
+      { "rafamadriz/friendly-snippets" },
+    },
+  },
 
-    use { "neovim/nvim-lspconfig" }           -- enable LSP
-    use { "williamboman/mason.nvim" }         -- simple to use language server installer
-    use { "williamboman/mason-lspconfig.nvim" }
-    use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
-    use { "RRethy/vim-illuminate" }
-    use { "p00f/clangd_extensions.nvim" }
+  -- 其他工具
+  { "ethanholz/nvim-lastplace", event = "BufReadPre" },
+  { "nvim-pack/nvim-spectre", event = "VeryLazy" },
+  { "tpope/vim-repeat", event = "VeryLazy" },
+  { "tpope/vim-surround", event = "VeryLazy" },
+  {
+    "phaazon/hop.nvim",
+    cmd = { "HopWord", "HopLine", "HopChar1" },
+  },
 
-    use "ray-x/lsp_signature.nvim" -- show function signature when typing
-    -- Editor enhance
-    -- use "terrortylor/nvim-comment"  -- for comment
-    use { "preservim/nerdcommenter" }
-    use { "Shatur/neovim-session-manager", commit = "a0b9d25154be573bc0f99877afb3f57cf881cce7" }
-    use { "hedyhli/outline.nvim" }
+  -- Git 相关
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    tag = "v0.7",
+  },
+  { "sindrets/diffview.nvim", cmd = { "DiffviewOpen", "DiffviewFileHistory" } },
 
-    -- cmp plugins
-    use { "hrsh7th/nvim-cmp" }   -- The completion plugin
-    use { "hrsh7th/cmp-buffer" } -- buffer completions
-    use { "hrsh7th/cmp-path" }   -- path completions
-    use { "hrsh7th/cmp-nvim-lsp" }
-    use { "hrsh7th/cmp-nvim-lua" }
-    use { "saadparwaiz1/cmp_luasnip" }
+  -- UI 相关
+  { "lunarvim/colorschemes", lazy = true },
+  {
+    "norcalli/nvim-colorizer.lua",
+    event = { "BufReadPre", "BufNewFile" },
+  },
+  { "Mofiqul/dracula.nvim", lazy = true },
+  {
+    "folke/trouble.nvim",
+    cmd = { "TroubleToggle", "Trouble" },
+    tag = "v2.10.0",
+  },
+  {
+    "j-hui/fidget.nvim",
+    tag = "v1.4.1",
+    event = "LspAttach",
+  },
+  { "sindrets/winshift.nvim", cmd = "WinShift" },
+  { "EdenEast/nightfox.nvim", lazy = true },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+  },
 
-    use "ethanholz/nvim-lastplace" -- auto return back to the last modified positon when open a file
-    -- use "BurntSushi/ripgrep" -- ripgrep
-    use "nvim-pack/nvim-spectre"   -- search and replace pane
-    use "tpope/vim-repeat"         --  . command enhance
-    use "tpope/vim-surround"       -- vim surround
+  -- litee 系列
+  {
+    "ldelossa/litee.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      { "ldelossa/litee-calltree.nvim" },
+    },
+  },
+  { "levouh/tint.nvim", event = "VeryLazy" },
 
-    use { "phaazon/hop.nvim" }
+  { "cpea2506/one_monokai.nvim", lazy = true },
 
-    -- snippets
-    use "L3MON4D3/LuaSnip"             -- snippet engine
-    use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
-
-    -- Git
-    use { "lewis6991/gitsigns.nvim", tag = "v0.7" }
-    use 'sindrets/diffview.nvim'
-
-    -- UI
-    -- Colorschemes
-    use "lunarvim/colorschemes"       -- A bunch of colorschemes you can try out
-    use "norcalli/nvim-colorizer.lua" -- show color
-    use 'Mofiqul/dracula.nvim'
-    use { "folke/trouble.nvim", tag="v2.10.0"}
-    use { "j-hui/fidget.nvim", tag = "v1.4.1" } -- show lsp progress
-    use {"sindrets/winshift.nvim"}                -- rerange window layout
-    use { 'EdenEast/nightfox.nvim' }
-    use { "lukas-reineke/indent-blankline.nvim" }
-    -- litee family
-    use "ldelossa/litee.nvim"
-    use "ldelossa/litee-calltree.nvim"
-    use "levouh/tint.nvim"
-
-    use { "cpea2506/one_monokai.nvim" }
-
-    -- tools
-    use "voldikss/vim-translator"
-    use "mtdl9/vim-log-highlighting"
-    use "Pocco81/HighStr.nvim"
-    use "vim-test/vim-test"
-    -- use "ravenxrz/DoxygenToolkit.vim"
-    use "Pocco81/auto-save.nvim"
-    use "djoshea/vim-autoread"
-    use { "VonHeikemen/fine-cmdline.nvim", requires = { { "MunifTanjim/nui.nvim" } } }
-
-    -- Automatically set up your configuration after cloning packer.nvim
-    -- Put this at the end after all plugins
-    if PACKER_BOOTSTRAP then
-        require("packer").sync()
-    end
-end)
+  -- 工具类插件
+  {
+    "voldikss/vim-translator",
+    cmd = { "Translate", "TranslateW", "TranslateR", "TranslateX" },
+  },
+  { "mtdl9/vim-log-highlighting", ft = "log" },
+  { "Pocco81/HighStr.nvim", cmd = "HSHighlight" },
+  {
+    "vim-test/vim-test",
+    cmd = { "TestNearest", "TestFile", "TestSuite", "TestLast", "TestVisit" },
+  },
+  {
+    "Pocco81/auto-save.nvim",
+    event = { "InsertLeave", "TextChanged" },
+  },
+  { "djoshea/vim-autoread", event = "VeryLazy" },
+  {
+    "VonHeikemen/fine-cmdline.nvim",
+    event = "VeryLazy",
+    dependencies = { "MunifTanjim/nui.nvim" },
+  },
+}, {
+  -- Lazy.nvim 配置
+  defaults = {
+    lazy = true, -- 默认所有插件延迟加载
+  },
+  install = {
+    colorscheme = { "nightfox", "habamax" }, -- 安装时使用的主题
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
+  change_detection = {
+    notify = false, -- 禁用更改检测通知
+  },
+})
