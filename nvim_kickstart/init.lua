@@ -30,6 +30,7 @@ vim.opt.scrolloff = 10
 
 -- keymaps
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "Q", ":q<CR>")
 vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
@@ -84,11 +85,14 @@ require("lazy").setup({
 				topdelete = { text = "‾" },
 				changedelete = { text = "~" },
 			},
+			current_line_blame = false,
+			watch_gitdir = { interval = 1000 },
+			attach_to_untracked = false,
 		},
 	},
 	{
 		"folke/which-key.nvim",
-		event = "VimEnter", -- Sets the loading event to 'VimEnter'
+		event = "VeryLazy",
 		opts = {
 			icons = {
 				mappings = vim.g.have_nerd_font,
@@ -293,7 +297,12 @@ require("lazy").setup({
 						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 							buffer = event.buf,
 							group = highlight_augroup,
-							callback = vim.lsp.buf.document_highlight,
+							-- callback = vim.lsp.buf.document_highlight,
+							callback = function()
+								vim.defer_fn(function()
+									pcall(vim.lsp.buf.document_highlight)
+								end, 200)
+							end,
 						})
 
 						vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
@@ -397,7 +406,7 @@ require("lazy").setup({
 					lsp_format_opt = "fallback"
 				end
 				return {
-					timeout_ms = 500,
+					timeout_ms = 2000,
 					lsp_format = lsp_format_opt,
 				}
 			end,
@@ -493,7 +502,6 @@ require("lazy").setup({
 	},
 	{
 		"EdenEast/nightfox.nvim",
-		event = "BufEnter",
 		priority = 1000, -- Make sure to load this before all the other start plugins.
 		init = function()
 			vim.cmd.colorscheme("nordfox")
@@ -502,6 +510,7 @@ require("lazy").setup({
 	}, -- Highlight todo, notes, etc in comments
 	{
 		"hedyhli/outline.nvim",
+		event = "VeryLazy",
 		config = function()
 			-- Example mapping to toggle outline
 			vim.keymap.set("n", "A-o", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
@@ -521,7 +530,7 @@ require("lazy").setup({
 		"echasnovski/mini.nvim",
 		config = function()
 			require("mini.ai").setup({
-				n_lines = 500,
+				n_lines = 200,
 			})
 			require("mini.surround").setup()
 			local statusline = require("mini.statusline")
@@ -536,11 +545,26 @@ require("lazy").setup({
 	},
 	{
 		"nvim-tree/nvim-tree.lua",
-		event = "BufEnter",
+		cmd = "NvimTreeToggle",
 		tag = "compat-nvim-0.7",
 		vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>"),
 		config = function()
 			require("nvim-tree").setup({
+				auto_reload_on_write = true,
+				disable_netrw = false,
+				hijack_cursor = false,
+				hijack_netrw = true,
+				hijack_unnamed_buffer_when_opening = false,
+				-- ignore_buffer_on_setup = false,
+				-- open_on_setup = false,
+				-- open_on_setup_file = false,
+				open_on_tab = false,
+				sort_by = "name",
+				update_focused_file = {
+					enable = true,
+					update_cwd = false,
+					ignore_list = {},
+				},
 				view = {
 					width = 30,
 					-- hide_root_folder = false,
@@ -594,14 +618,8 @@ require("lazy").setup({
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
-			highlight = {
-				enable = true,
-				additional_vim_regex_highlighting = { "ruby" },
-			},
-			indent = {
-				enable = true,
-				disable = { "ruby" },
-			},
+			highlight = { enable = true },
+			indent = { enable = true },
 		},
 	},
 }, {
